@@ -1,0 +1,69 @@
+{
+  "_args": [
+    [
+      "styleguidekit-assets-default@3.5.0",
+      "/Users/marcello.palmitessa/projects/pl"
+    ]
+  ],
+  "_from": "styleguidekit-assets-default@3.5.0",
+  "_id": "styleguidekit-assets-default@3.5.0",
+  "_inBundle": false,
+  "_integrity": "sha1-eQfh5yL7r1V3IXcCdTiVA/dc92U=",
+  "_location": "/styleguidekit-assets-default",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "styleguidekit-assets-default@3.5.0",
+    "name": "styleguidekit-assets-default",
+    "escapedName": "styleguidekit-assets-default",
+    "rawSpec": "3.5.0",
+    "saveSpec": null,
+    "fetchSpec": "3.5.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/styleguidekit-assets-default/-/styleguidekit-assets-default-3.5.0.tgz",
+  "_spec": "3.5.0",
+  "_where": "/Users/marcello.palmitessa/projects/pl",
+  "author": {
+    "name": "Dave Olsen"
+  },
+  "bugs": {
+    "url": "https://github.com/pattern-lab/styleguidekit-assets-default/issues"
+  },
+  "contributors": [
+    {
+      "name": "Brian Muenzenmeyer"
+    }
+  ],
+  "description": "The default set of front-end assets for Pattern Lab.",
+  "devDependencies": {
+    "del": "^1.1.1",
+    "gulp": "^3.8.6",
+    "gulp-autoprefixer": "^2.1",
+    "gulp-concat": "^2.3.4",
+    "gulp-file-include": "^0.13.7",
+    "gulp-imagemin": "^0.6.1",
+    "gulp-jshint": "^1.8.0",
+    "gulp-load-plugins": "^0.5.3",
+    "gulp-minify-css": "^0.3.7",
+    "gulp-rename": "^1.2.0",
+    "gulp-resolve-dependencies": "^1.0.1",
+    "gulp-ruby-sass": "^1.0.0-alpha",
+    "gulp-uglify": "^1.1.0",
+    "gulp-util": "^3.0.0",
+    "imagemin-pngcrush": "^0.1.0",
+    "main-bower-files": "^1.0.2",
+    "yargs": "^1.2.6"
+  },
+  "homepage": "https://github.com/pattern-lab/styleguidekit-assets-default",
+  "license": "MIT",
+  "name": "styleguidekit-assets-default",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pattern-lab/styleguidekit-assets-default.git"
+  },
+  "version": "3.5.0"
+}

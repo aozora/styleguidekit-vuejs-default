@@ -1,0 +1,61 @@
+{
+  "_args": [
+    [
+      "styleguidekit-mustache-default@3.1.0",
+      "/Users/marcello.palmitessa/projects/pl"
+    ]
+  ],
+  "_from": "styleguidekit-mustache-default@3.1.0",
+  "_id": "styleguidekit-mustache-default@3.1.0",
+  "_inBundle": false,
+  "_integrity": "sha1-HnS5vNa8Gsj81EKAunUhcg7rW20=",
+  "_location": "/styleguidekit-mustache-default",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "styleguidekit-mustache-default@3.1.0",
+    "name": "styleguidekit-mustache-default",
+    "escapedName": "styleguidekit-mustache-default",
+    "rawSpec": "3.1.0",
+    "saveSpec": null,
+    "fetchSpec": "3.1.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/styleguidekit-mustache-default/-/styleguidekit-mustache-default-3.1.0.tgz",
+  "_spec": "3.1.0",
+  "_where": "/Users/marcello.palmitessa/projects/pl",
+  "authors": [
+    {
+      "name": "Dave Olsen",
+      "email": "dmolsen@gmail.com",
+      "homepage": "http://dmolsen.com",
+      "role": "Lead Developer"
+    },
+    {
+      "name": "Brad Frost",
+      "homepage": "http://bradfrostweb.com",
+      "role": "Creator"
+    },
+    {
+      "name": "Brian Muenzenmeyer",
+      "homepage": "http://brianmuenzenmeyer.com",
+      "role": "Developer"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/pattern-lab/styleguidekit-mustache-default/issues"
+  },
+  "dependencies": {},
+  "description": "The default Mustache-based StyleguideKit for Pattern Lab. Contains styles and mark-up for Pattern Lab's front-end.",
+  "homepage": "https://github.com/pattern-lab/styleguidekit-mustache-default#readme",
+  "license": "MIT",
+  "name": "styleguidekit-mustache-default",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pattern-lab/styleguidekit-mustache-default.git"
+  },
+  "version": "3.1.0"
+}
