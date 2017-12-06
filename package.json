@@ -1,10 +1,10 @@
 {
-  "name": "styleguidekit-mustache-default",
+  "name": "styleguidekit-vuejs-default",
   "repository": {
     "type": "git",
-    "url": "git://github.com/pattern-lab/styleguidekit-mustache-default.git"
+    "url": "git://github.com/aozora/styleguidekit-vuejs-default.git"
   },
-  "version": "3.1.0",
+  "version": "1.0.0",
   "authors": [
     {
       "name": "Marcello Palmitessa",
@@ -90,4 +90,3 @@
     "not ie <= 8"
   ]
 }
-
