@@ -7,8 +7,6 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-const delay = 2500;
-
 const store = new Vuex.Store({
   state: {
     isLoading: false,
