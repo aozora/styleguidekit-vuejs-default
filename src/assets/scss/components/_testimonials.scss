@@ -1,0 +1,46 @@
+.testimonials {
+  background: $light-gray;
+  padding: 2rem 1rem;
+
+  .testimonials__item {
+    display: flex;
+    align-items: center;
+    margin: 2rem 1rem;
+
+    img {
+      max-width: 100px;
+      border-radius: 50%;
+    }
+
+    p {
+      margin-left: 3rem;
+      margin-bottom: 0;
+      padding: 1rem;
+      position: relative;
+
+      &::before {
+        content: "“";
+        font-size: 5rem;
+        color: lighten($black, 80%);
+        position: absolute;
+        top: -2.5rem;
+        left: -1.5rem;
+      }
+
+      &::after {
+        content: "”";
+        font-size: 5rem;
+        color: lighten($black, 80%);
+        position: absolute;
+        bottom: -4rem;
+        right: -.5rem;
+      }
+
+      @include breakpoint(small only){
+        margin-left: 0;
+      }
+    }
+
+  }
+}
+

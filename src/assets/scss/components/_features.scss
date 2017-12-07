@@ -1,0 +1,30 @@
+$features-width: 900px;
+
+.features {
+  text-align: center;
+  padding: 2rem 0;
+
+  .row {
+    max-width: $features-width;
+  }
+
+  .columns {
+    margin-bottom: 1rem;
+
+    @media screen and (min-width: 40em) {
+      margin-bottom: 0;
+    }
+  }
+
+  svg {
+    //font-size: 3rem;
+    margin-bottom: 1rem;
+    fill: $primary-color;
+  }
+}
+
+.features__headline {
+  margin-bottom: 2rem;
+  font-size: 24px;
+}
+

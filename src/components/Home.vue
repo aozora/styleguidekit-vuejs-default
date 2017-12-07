@@ -6,7 +6,10 @@
       <div class="sg-nav-container" id="sg-nav-container">
         <!-- pattern lab nav will be inserted here -->
         <pattern-nav></pattern-nav>
-        <div class="sg-controls" id="sg-controls"><!-- ish Controls will be inserted here --></div>
+        <div class="sg-controls" id="sg-controls">
+          <!-- ish Controls will be inserted here -->
+          <ish-control></ish-control>
+        </div>
       </div>
     </header>
     <!--End Style Guide Header-->
@@ -44,10 +47,12 @@
 
 <script>
   import PatternNav from './PatternNav';
+  import IshControl from './IshControl';
 
   export default {
     name: 'Home',
     components: {
+      IshControl,
       PatternNav
     }
   };

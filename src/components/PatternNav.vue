@@ -9,6 +9,7 @@
 
             <li v-for="patternSubtypeItem in patternTypeItem.patternSubtypeItems">
               <a v-bind:href="getPatternUrl(patternSubtypeItem.patternPath)"
+                 v-on:click.prevent="selectPattern(patternSubtypeItem.patternPartial)"
                  class="sg-pop"
                  v-bind:class="{'sg-pattern-state': patternSubtypeItem.patternState }"
                  v-bind:data-patternpartial="patternSubtypeItem.patternPartial">
@@ -30,7 +31,7 @@
       </ol>
     </li>
 
-    <li v-if="ishControlsHide && navItems.ishControlsHide['views-all'] === false">
+    <li v-if="navItems.ishControlsHide && navItems.ishControlsHide['views-all'] === false">
       <a href="styleguide/html/styleguide.html" class="sg-pop" data-patternpartial="all">All</a>
     </li>
   </ol>
@@ -38,6 +39,7 @@
 
 <script>
   import { mapState } from 'vuex';
+  import urlHandler from '../api/url-handler';
 
   export default {
     name: 'PatternNav',
@@ -48,21 +50,26 @@
           'navItems'
         ]
       )
-
-      // patternTypes() {
-      //   return this.$store.navItems ? this.$store.navItems.patternTypes : [];
-      // },
-      //
-      // ishControlsHide() {
-      //   return this.$store.navItems ? this.$store.navItems.ishControlsHide : {};
-      // }
     },
 
     methods: {
       getPatternUrl(patternPath) {
         return `patterns/${patternPath}`;
+      },
+
+      selectPattern(patternPartial) {
+        // update the iframe with the source from clicked element in pull down menu. also close the menu
+        // having it outside fixes an auto-close bug i ran into
+        // update the iframe via the history api handler
+        const obj = JSON.stringify({
+          event: 'patternLab.updatePath',
+          path: urlHandler.getFileName(patternPartial)
+        });
+
+        document.getElementById('sg-viewport').contentWindow.postMessage(obj, urlHandler.targetOrigin);
+
+        // closePanels();
       }
     }
-  }
-  ;
+  };
 </script>
