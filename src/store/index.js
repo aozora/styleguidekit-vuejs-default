@@ -9,7 +9,10 @@ const store = new Vuex.Store({
     isLoading: false,
     config: {},
     ishControls: {},
-    navItems: {},
+    navItems: {
+      patternTypes: [],
+      ishControlsHide: {}
+    },
     patternPaths: {},
     viewAllPaths: {},
     plugins: {},
@@ -20,11 +23,6 @@ const store = new Vuex.Store({
   // plugins: [createPersistedState()],
 
   mutations: {
-    SET_IS_LOADING: (state, loading) => {
-      /* eslint-disable no-param-reassign */
-      state.isLoading = loading;
-    },
-
     SETUP: (state, patternData) => {
       /* eslint-disable no-param-reassign */
       state.config = patternData.config;
@@ -40,7 +38,17 @@ const store = new Vuex.Store({
   },
 
   actions: {
-    SETUP: ({ commit, state }, patternData) => {
+    SETUP: ({ commit }) => {
+      const patternData = {};
+      patternData.config = window.config;
+      patternData.ishControls = window.ishControls;
+      patternData.navItems = window.navItems;
+      patternData.patternPaths = window.patternPaths;
+      patternData.viewAllPaths = window.viewAllPaths;
+      patternData.plugins = window.plugins;
+      patternData.defaultShowPatternInfo = window.defaultShowPatternInfo;
+      patternData.defaultPattern = window.defaultPattern;
+
       commit('SETUP', patternData);
 
       // eslint-disable-next-line no-console

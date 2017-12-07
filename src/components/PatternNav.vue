@@ -37,21 +37,26 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
+
   export default {
     name: 'PatternNav',
 
     computed: {
-      navItems() {
-        return this.$store.navItems;
-      },
+      ...mapState(
+        [
+          'patternTypes',
+          'ishControlsHide'
+        ]
+      )
 
-      patternTypes() {
-        return this.$store.navItems ? this.$store.navItems.patternTypes : [];
-      },
-
-      ishControlsHide() {
-        return this.$store.navItems ? this.$store.navItems.ishControlsHide : {};
-      }
+      // patternTypes() {
+      //   return this.$store.navItems ? this.$store.navItems.patternTypes : [];
+      // },
+      //
+      // ishControlsHide() {
+      //   return this.$store.navItems ? this.$store.navItems.ishControlsHide : {};
+      // }
     },
 
     methods: {
@@ -59,5 +64,6 @@
         return `patterns/${patternPath}`;
       }
     }
-  };
+  }
+  ;
 </script>
