@@ -1,10 +1,10 @@
 <template>
   <ol class="sg-nav" id="pl-pattern-nav-target">
     <li v-for="patternType in navItems.patternTypes">
-      <a class="sg-acc-handle">{{ patternType.patternTypeUC }}</a>
+      <a v-on:click.prevent="toggleAccordion" class="sg-acc-handle">{{ patternType.patternTypeUC }}</a>
       <ol class="sg-acc-panel">
         <li v-for="patternTypeItem in patternType.patternTypeItems">
-          <a class="sg-acc-handle">{{ patternTypeItem.patternSubtypeUC }}</a>
+          <a v-on:click.prevent="toggleAccordion" class="sg-acc-handle">{{ patternTypeItem.patternSubtypeUC }}</a>
           <ol class="sg-acc-panel sg-sub-nav">
 
             <li v-for="patternSubtypeItem in patternTypeItem.patternSubtypeItems">
@@ -39,6 +39,7 @@
 
 <script>
   import { mapState } from 'vuex';
+  import $ from 'jquery';
   import urlHandler from '../api/url-handler';
 
   export default {
@@ -69,7 +70,33 @@
         document.getElementById('sg-viewport').contentWindow.postMessage(obj, urlHandler.targetOrigin);
 
         // closePanels();
+      },
+
+      toggleAccordion($event) {
+        const $this = $($event.target);
+        const $panel = $this.next('.sg-acc-panel');
+        const subnav = $this.parent().parent().hasClass('sg-acc-panel');
+
+        // Close other panels if link isn't a subnavigation item
+        if (!subnav) {
+          $('.sg-acc-handle').not($this).removeClass('active');
+          $('.sg-acc-panel').not($panel).removeClass('active');
+        }
+
+        // Activate selected panel
+        $this.toggleClass('active');
+        $panel.toggleClass('active');
+        // this.setAccordionHeight();
       }
+
+      // // Accordion Height
+      // setAccordionHeight() {
+      //   const $activeAccordion = $('.sg-acc-panel.active').first();
+      //   const accordionHeight = $activeAccordion.height();
+      //   const availableHeight = $(document).height() - $headerHeight; //Screen height minus the height of the header
+      //
+      //   $activeAccordion.height(availableHeight); //Set height of accordion to the available height
+      // }
     }
   };
 </script>

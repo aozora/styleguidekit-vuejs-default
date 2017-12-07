@@ -41,6 +41,16 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')
     }),
+    //
+    // // extract css into its own file
+    // new ExtractTextPlugin({
+    //   filename: utils.assetsPath('css/[name].[contenthash].css'),
+    //   // set the following option to `true` if you want to extract CSS from
+    //   // codesplit chunks into this main css file as well.
+    //   // This will result in *all* of your app's CSS being loaded upfront.
+    //   allChunks: false,
+    // }),
+
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),

@@ -2,7 +2,7 @@
   <div>
     <!--Style Guide Header-->
     <header class="sg-header" role="banner">
-      <a href="#sg-nav-container" class="sg-nav-toggle">Menu</a>
+      <a href="#sg-nav-container" class="sg-nav-toggle" v-on:click.prevent="toggleMenu">Menu</a>
       <div class="sg-nav-container" id="sg-nav-container">
         <!-- pattern lab nav will be inserted here -->
         <pattern-nav></pattern-nav>
@@ -46,14 +46,22 @@
 </template>
 
 <script>
+  import $ from 'jquery';
   import PatternNav from './PatternNav';
   import IshControl from './IshControl';
 
   export default {
     name: 'Home',
+
     components: {
       IshControl,
       PatternNav
+    },
+
+    methods: {
+      toggleMenu() {
+        $('.sg-nav-container').toggleClass('active');
+      }
     }
   };
 </script>

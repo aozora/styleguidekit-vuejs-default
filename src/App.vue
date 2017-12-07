@@ -18,5 +18,5 @@
 </script>
 
 <style lang="scss">
-  @import 'assets/scss/app.scss';
+  @import 'assets/scss/styleguide.scss';
 </style>
