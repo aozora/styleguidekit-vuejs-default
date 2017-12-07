@@ -67,6 +67,9 @@
           path: urlHandler.getFileName(patternPartial)
         });
 
+        // eslint-disable-next-line no-console
+        console.log(`urlHandler.targetOrigin: ${urlHandler.targetOrigin}`);
+
         document.getElementById('sg-viewport').contentWindow.postMessage(obj, urlHandler.targetOrigin);
 
         // closePanels();

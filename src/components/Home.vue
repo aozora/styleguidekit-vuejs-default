@@ -62,6 +62,13 @@
       toggleMenu() {
         $('.sg-nav-container').toggleClass('active');
       }
+    },
+
+    mounted() {
+      const baseIframePath = `${window.location.protocol}//${window.location.host}${window.location.pathname.replace('index.html', '')}`;
+      const iFramePath = `${baseIframePath}styleguide/html/styleguide.html?${Date.now()}`;
+
+      document.getElementById('sg-viewport').contentWindow.location.replace(iFramePath);
     }
   };
 </script>
