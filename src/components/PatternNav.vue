@@ -1,6 +1,6 @@
 <template>
   <ol class="sg-nav" id="pl-pattern-nav-target">
-    <li v-for="patternType in patternTypes">
+    <li v-for="patternType in navItems.patternTypes">
       <a class="sg-acc-handle">{{ patternType.patternTypeUC }}</a>
       <ol class="sg-acc-panel">
         <li v-for="patternTypeItem in patternType.patternTypeItems">
@@ -30,7 +30,7 @@
       </ol>
     </li>
 
-    <li v-if="ishControlsHide && ishControlsHide['views-all'] === false">
+    <li v-if="ishControlsHide && navItems.ishControlsHide['views-all'] === false">
       <a href="styleguide/html/styleguide.html" class="sg-pop" data-patternpartial="all">All</a>
     </li>
   </ol>
@@ -45,8 +45,7 @@
     computed: {
       ...mapState(
         [
-          'patternTypes',
-          'ishControlsHide'
+          'navItems'
         ]
       )
 
