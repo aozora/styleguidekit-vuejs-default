@@ -49,6 +49,7 @@
   import $ from 'jquery';
   import PatternNav from './PatternNav';
   import IshControl from './IshControl';
+  import urlHandler from '../api/url-handler';
 
   export default {
     name: 'Home',
@@ -65,8 +66,23 @@
     },
 
     mounted() {
+      // get the request vars
+      const oGetVars = urlHandler.getRequestVars();
+
       const baseIframePath = `${window.location.protocol}//${window.location.host}${window.location.pathname.replace('index.html', '')}`;
-      const iFramePath = `${baseIframePath}styleguide/html/styleguide.html?${Date.now()}`;
+      let iFramePath = `${baseIframePath}styleguide/html/styleguide.html?${Date.now()}`;
+      let patternName = ((this.$store.state.defaultPattern !== undefined) && (typeof this.$store.state.defaultPattern === 'string') && (this.$store.state.defaultPattern.trim().length > 0)) ? this.$store.state.defaultPattern : 'all';
+      if ((oGetVars.p !== undefined) || (oGetVars.pattern !== undefined)) {
+        patternName = (oGetVars.p !== undefined) ? oGetVars.p : oGetVars.pattern;
+      }
+
+      let patternPath;
+      if (patternName !== 'all') {
+        patternPath = urlHandler.getFileName(patternName);
+        iFramePath = (patternPath !== '') ? `${baseIframePath}${patternPath}?${Date.now()}` : iFramePath;
+        document.getElementById('title').innerHTML = `Pattern Lab - ${patternName}`;
+        history.replaceState({ pattern: patternName }, null, null);
+      }
 
       document.getElementById('sg-viewport').contentWindow.location.replace(iFramePath);
     }
