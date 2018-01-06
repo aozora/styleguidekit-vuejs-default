@@ -68,9 +68,13 @@
         });
 
         // eslint-disable-next-line no-console
+        // console.dir(obj);
+
+        // eslint-disable-next-line no-console
         console.log(`urlHandler.targetOrigin: ${urlHandler.targetOrigin}`);
 
-        document.getElementById('sg-viewport').contentWindow.postMessage(obj, urlHandler.targetOrigin);
+        // document.getElementById('sg-viewport').contentWindow.postMessage(obj, urlHandler.targetOrigin);
+        document.getElementById('sg-viewport').contentWindow.postMessage(obj, obj.path);
 
         // closePanels();
       },
