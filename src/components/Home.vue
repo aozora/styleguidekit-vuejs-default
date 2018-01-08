@@ -46,6 +46,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
   import $ from 'jquery';
   import PatternNav from './PatternNav';
   import IshControl from './IshControl';
@@ -57,6 +58,36 @@
     components: {
       IshControl,
       PatternNav
+    },
+
+    // eslint-disable-next-line object-shorthand,func-names
+    data: function () {
+      return {
+        sw: document.body.clientWidth, // Viewport Width
+        sh: $(document).height(), // Viewport Height
+
+        minViewportWidth: 240,
+        maxViewportWidth: 2600,
+
+        viewportResizeHandleWidth: 14, // Width of the viewport drag-to-resize handle
+        $sgViewport: $('#sg-viewport'), // Viewport element
+        $sizePx: $('.sg-size-px'), // Px size input element in toolbar
+        $sizeEms: $('.sg-size-em'), // Em size input element in toolbar
+        $bodySize: parseInt($('body').css('font-size'), 10), // Body size of the document,
+        $headerHeight: $('.sg-header').height(),
+        discoID: false,
+        discoMode: false,
+        fullMode: true,
+        hayMode: false
+      };
+    },
+
+    computed: {
+      ...mapState(
+        [
+          'config'
+        ]
+      )
     },
 
     methods: {
@@ -85,6 +116,26 @@
       }
 
       document.getElementById('sg-viewport').contentWindow.location.replace(iFramePath);
+
+
+      // Viewport Height
+
+      // set minimum and maximum viewport based on confg
+      if (this.config.ishMinimum !== undefined) {
+        this.minViewportWidth = parseInt(this.config.ishMinimum, 10); // Minimum Size for Viewport
+      }
+      if (this.config.ishMaximum !== undefined) {
+        this.maxViewportWidth = parseInt(this.config.ishMaximum, 10); // Maxiumum Size for Viewport
+      }
+
+      // alternatively, use the ishViewportRange object
+      if (this.config.ishViewportRange !== undefined) {
+        this.minViewportWidth = this.config.ishViewportRange.s[0];
+        this.maxViewportWidth = this.config.ishViewportRange.l[1];
+      }
+
+      // Body size of the document,
+      this.$bodySize = (this.config.ishFontSize !== undefined) ? parseInt(this.config.ishFontSize, 10) : parseInt($('body').css('font-size'), 10);
     }
   };
 </script>

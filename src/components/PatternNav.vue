@@ -92,17 +92,17 @@
         // Activate selected panel
         $this.toggleClass('active');
         $panel.toggleClass('active');
-        // this.setAccordionHeight();
-      }
+        this.setAccordionHeight();
+      },
 
-      // // Accordion Height
-      // setAccordionHeight() {
-      //   const $activeAccordion = $('.sg-acc-panel.active').first();
-      //   const accordionHeight = $activeAccordion.height();
-      //   const availableHeight = $(document).height() - $headerHeight; //Screen height minus the height of the header
-      //
-      //   $activeAccordion.height(availableHeight); //Set height of accordion to the available height
-      // }
+      // Accordion Height
+      setAccordionHeight() {
+        const $activeAccordion = $('.sg-acc-panel.active').first();
+        // const accordionHeight = $activeAccordion.height(); // this is unused.... !?
+        const availableHeight = $(document).height() - $('.sg-header').height(); // Screen height minus the height of the header
+
+        $activeAccordion.height(availableHeight); // Set height of accordion to the available height
+      }
     }
   };
 </script>

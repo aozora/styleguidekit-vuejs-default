@@ -6,31 +6,31 @@
 
 (function (w) {
 
-  var sw = document.body.clientWidth, //Viewport Width
-    sh = $(document).height(); //Viewport Height
+  var sw = document.body.clientWidth, // Viewport Width
+    sh = $(document).height(); // Viewport Height
 
   var minViewportWidth = 240;
   var maxViewportWidth = 2600;
 
-  //set minimum and maximum viewport based on confg
+  // set minimum and maximum viewport based on confg
   if (config.ishMinimum !== undefined) {
-    minViewportWidth = parseInt(config.ishMinimum); //Minimum Size for Viewport
+    minViewportWidth = parseInt(config.ishMinimum); // Minimum Size for Viewport
   }
   if (config.ishMaximum !== undefined) {
-    maxViewportWidth = parseInt(config.ishMaximum); //Maxiumum Size for Viewport
+    maxViewportWidth = parseInt(config.ishMaximum); // Maxiumum Size for Viewport
   }
 
-  //alternatively, use the ishViewportRange object
+  // alternatively, use the ishViewportRange object
   if (config.ishViewportRange !== undefined) {
     minViewportWidth = config.ishViewportRange.s[0];
     maxViewportWidth = config.ishViewportRange.l[1];
   }
 
-  var viewportResizeHandleWidth = 14, //Width of the viewport drag-to-resize handle
-    $sgViewport = $('#sg-viewport'), //Viewport element
-    $sizePx = $('.sg-size-px'), //Px size input element in toolbar
-    $sizeEms = $('.sg-size-em'), //Em size input element in toolbar
-    $bodySize = (config.ishFontSize !== undefined) ? parseInt(config.ishFontSize) : parseInt($('body').css('font-size')), //Body size of the document,
+  var viewportResizeHandleWidth = 14, // Width of the viewport drag-to-resize handle
+    $sgViewport = $('#sg-viewport'), // Viewport element
+    $sizePx = $('.sg-size-px'), // Px size input element in toolbar
+    $sizeEms = $('.sg-size-em'), // Em size input element in toolbar
+    $bodySize = (config.ishFontSize !== undefined) ? parseInt(config.ishFontSize) : parseInt($('body').css('font-size')), // Body size of the document,
     $headerHeight = $('.sg-header').height(),
     discoID = false,
     discoMode = false,
@@ -38,7 +38,7 @@
     hayMode = false;
 
 
-  //Update dimensions on resize
+  // Update dimensions on resize
   $(w).resize(function () {
     sw = document.body.clientWidth;
     sh = $(document).height();
@@ -58,25 +58,25 @@
       $panel = $this.next('.sg-acc-panel'),
       subnav = $this.parent().parent().hasClass('sg-acc-panel');
 
-    //Close other panels if link isn't a subnavigation item
+    // Close other panels if link isn't a subnavigation item
     if (!subnav) {
       $('.sg-acc-handle').not($this).removeClass('active');
       $('.sg-acc-panel').not($panel).removeClass('active');
     }
 
-    //Activate selected panel
+    // Activate selected panel
     $this.toggleClass('active');
     $panel.toggleClass('active');
     setAccordionHeight();
   });
 
-  //Accordion Height
+  // Accordion Height
   function setAccordionHeight() {
     var $activeAccordion = $('.sg-acc-panel.active').first(),
       accordionHeight = $activeAccordion.height(),
-      availableHeight = sh - $headerHeight; //Screen height minus the height of the header
+      availableHeight = sh - $headerHeight; // Screen height minus the height of the header
 
-    $activeAccordion.height(availableHeight); //Set height of accordion to the available height
+    $activeAccordion.height(availableHeight); // Set height of accordion to the available height
   }
 
   $('.sg-nav-toggle').on("click", function (e) {
@@ -90,13 +90,13 @@
     $(this).parents('ul').toggleClass('active');
   });
 
-  //Size Trigger
+  // Size Trigger
   $('#sg-size-toggle').on("click", function (e) {
     e.preventDefault();
     $(this).parents('ul').toggleClass('active');
   });
 
-  //Phase View Events
+  // Phase View Events
   $('.sg-size[data-size]').on("click", function (e) {
     e.preventDefault();
     killDisco();
@@ -113,7 +113,7 @@
     sizeiframe(Math.floor(val * $bodySize));
   });
 
-  //Size View Events
+  // Size View Events
 
   // handle small button
   function goSmall() {
@@ -178,8 +178,8 @@
     return false;
   });
 
-  //Click Full Width Button
-  $('#sg-size-full').on("click", function (e) { //Resets
+  // Click Full Width Button
+  $('#sg-size-full').on("click", function (e) { // Resets
     e.preventDefault();
     killDisco();
     killHay();
@@ -187,7 +187,7 @@
     sizeiframe(sw);
   });
 
-  //Click Random Size Button
+  // Click Random Size Button
   $('#sg-size-random').on("click", function (e) {
     e.preventDefault();
     killDisco();
@@ -196,7 +196,7 @@
     sizeiframe(getRandom(minViewportWidth, sw));
   });
 
-  //Click for Disco Mode, which resizes the viewport randomly
+  // Click for Disco Mode, which resizes the viewport randomly
   $('#sg-size-disco').on("click", function (e) {
     e.preventDefault();
     killHay();
@@ -235,7 +235,7 @@
     return false;
   });
 
-  //Stephen Hay Mode - "Start with the small screen first, then expand until it looks like shit. Time for a breakpoint!"
+  // Stephen Hay Mode - "Start with the small screen first, then expand until it looks like shit. Time for a breakpoint!"
   $('#sg-size-hay').on("click", function (e) {
     e.preventDefault();
     killDisco();
@@ -246,7 +246,7 @@
     }
   });
 
-  //Stop Hay! Mode
+  // Stop Hay! Mode
   function killHay() {
     var currentWidth = $sgViewport.width();
     hayMode = false;
@@ -281,19 +281,19 @@
     }
   });
 
-  //Pixel input
+  // Pixel input
   $sizePx.on('keydown', function (e) {
     var val = Math.floor($(this).val());
 
-    if (e.keyCode === 38) { //If the up arrow key is hit
+    if (e.keyCode === 38) { // If the up arrow key is hit
       val++;
       sizeiframe(val, false);
-    } else if (e.keyCode === 40) { //If the down arrow key is hit
+    } else if (e.keyCode === 40) { // If the down arrow key is hit
       val--;
       sizeiframe(val, false);
-    } else if (e.keyCode === 13) { //If the Enter key is hit
+    } else if (e.keyCode === 13) { // If the Enter key is hit
       e.preventDefault();
-      sizeiframe(val); //Size Iframe to value of text box
+      sizeiframe(val); // Size Iframe to value of text box
       $(this).blur();
     }
   });
@@ -303,19 +303,19 @@
     updateSizeReading(val, 'px', 'updateEmInput');
   });
 
-  //Em input
+  // Em input
   $sizeEms.on('keydown', function (e) {
     var val = parseFloat($(this).val());
 
-    if (e.keyCode === 38) { //If the up arrow key is hit
+    if (e.keyCode === 38) { // If the up arrow key is hit
       val++;
       sizeiframe(Math.floor(val * $bodySize), false);
-    } else if (e.keyCode === 40) { //If the down arrow key is hit
+    } else if (e.keyCode === 40) { // If the down arrow key is hit
       val--;
       sizeiframe(Math.floor(val * $bodySize), false);
-    } else if (e.keyCode === 13) { //If the Enter key is hit
+    } else if (e.keyCode === 13) { // If the Enter key is hit
       e.preventDefault();
-      sizeiframe(Math.floor(val * $bodySize)); //Size Iframe to value of text box
+      sizeiframe(Math.floor(val * $bodySize)); // Size Iframe to value of text box
     }
   });
 
@@ -363,40 +363,40 @@
 
   });
 
-  //Resize the viewport
-  //'size' is the target size of the viewport
-  //'animate' is a boolean for switching the CSS animation on or off. 'animate' is true by default, but can be set to false for things like nudging and dragging
+  // Resize the viewport
+  // 'size' is the target size of the viewport
+  // 'animate' is a boolean for switching the CSS animation on or off. 'animate' is true by default, but can be set to false for things like nudging and dragging
   function sizeiframe(size, animate) {
     var theSize;
 
-    if (size > maxViewportWidth) { //If the entered size is larger than the max allowed viewport size, cap value at max vp size
+    if (size > maxViewportWidth) { // If the entered size is larger than the max allowed viewport size, cap value at max vp size
       theSize = maxViewportWidth;
-    } else if (size < minViewportWidth) { //If the entered size is less than the minimum allowed viewport size, cap value at min vp size
+    } else if (size < minViewportWidth) { // If the entered size is less than the minimum allowed viewport size, cap value at min vp size
       theSize = minViewportWidth;
     } else {
       theSize = size;
     }
 
-    //Conditionally remove CSS animation class from viewport
+    // Conditionally remove CSS animation class from viewport
     if (animate === false) {
-      $('#sg-gen-container,#sg-viewport').removeClass("vp-animate"); //If aninate is set to false, remove animate class from viewport
+      $('#sg-gen-container,#sg-viewport').removeClass("vp-animate"); // If aninate is set to false, remove animate class from viewport
     } else {
       $('#sg-gen-container,#sg-viewport').addClass("vp-animate");
     }
 
-    $('#sg-gen-container').width(theSize + viewportResizeHandleWidth); //Resize viewport wrapper to desired size + size of drag resize handler
-    $sgViewport.width(theSize); //Resize viewport to desired size
+    $('#sg-gen-container').width(theSize + viewportResizeHandleWidth); // Resize viewport wrapper to desired size + size of drag resize handler
+    $sgViewport.width(theSize); // Resize viewport to desired size
 
-    var targetOrigin = (window.location.protocol === "file:") ? "*" : window.location.protocol + "//" + window.location.host;
+    var targetOrigin = (window.location.protocol === "file:") ? "*" : window.location.protocol + "// " + window.location.host;
     var obj = JSON.stringify({ "event": "patternLab.resize", "resize": "true" });
     document.getElementById('sg-viewport').contentWindow.postMessage(obj, targetOrigin);
 
-    updateSizeReading(theSize); //Update values in toolbar
-    saveSize(theSize); //Save current viewport to cookie
+    updateSizeReading(theSize); // Update values in toolbar
+    saveSize(theSize); // Save current viewport to cookie
   }
 
   $("#sg-gen-container").on('transitionend webkitTransitionEnd', function (e) {
-    var targetOrigin = (window.location.protocol === "file:") ? "*" : window.location.protocol + "//" + window.location.host;
+    var targetOrigin = (window.location.protocol === "file:") ? "*" : window.location.protocol + "// " + window.location.host;
     var obj = JSON.stringify({ "event": "patternLab.resize", "resize": "true" });
     document.getElementById('sg-viewport').contentWindow.postMessage(obj, targetOrigin);
   });
@@ -410,17 +410,17 @@
   }
 
 
-  //Update Pixel and Em inputs
-  //'size' is the input number
-  //'unit' is the type of unit: either px or em. Default is px. Accepted values are 'px' and 'em'
-  //'target' is what inputs to update. Defaults to both
+  // Update Pixel and Em inputs
+  // 'size' is the input number
+  // 'unit' is the type of unit: either px or em. Default is px. Accepted values are 'px' and 'em'
+  // 'target' is what inputs to update. Defaults to both
   function updateSizeReading(size, unit, target) {
     var emSize, pxSize;
 
-    if (unit === 'em') { //If size value is in em units
+    if (unit === 'em') { // If size value is in em units
       emSize = size;
       pxSize = Math.floor(size * $bodySize);
-    } else { //If value is px or absent
+    } else { // If value is px or absent
       pxSize = size;
       emSize = size / $bodySize;
     }
@@ -440,7 +440,7 @@
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-  //Update The viewport size
+  // Update The viewport size
   function updateViewportWidth(size) {
     $("#sg-viewport").width(size);
     $("#sg-gen-container").width(size * 1 + 14);
@@ -531,7 +531,7 @@
   }
 
   // set up the defaults for the
-  var baseIframePath = window.location.protocol + "//" + window.location.host + window.location.pathname.replace("index.html", "");
+  var baseIframePath = window.location.protocol + "// " + window.location.host + window.location.pathname.replace("index.html", "");
   var patternName = ((config.defaultPattern !== undefined) && (typeof config.defaultPattern === 'string') && (config.defaultPattern.trim().length > 0)) ? config.defaultPattern : 'all';
   var iFramePath = baseIframePath + "styleguide/html/styleguide.html?" + Date.now();
   if ((oGetVars.p !== undefined) || (oGetVars.pattern !== undefined)) {
@@ -552,7 +552,7 @@
   urlHandler.skipBack = true;
   document.getElementById("sg-viewport").contentWindow.location.replace(iFramePath);
 
-  //Close all dropdowns and navigation
+  // Close all dropdowns and navigation
   function closePanels() {
     $('.sg-nav-container, .sg-nav-toggle, .sg-acc-handle, .sg-acc-panel').removeClass('active');
     patternFinder.closeFinder();
@@ -591,11 +591,11 @@
   }
 
   // watch the iframe source so that it can be sent back to everyone else.
-  // based on the great MDN docs at https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage
+  // based on the great MDN docs at https:// developer.mozilla.org/en-US/docs/Web/API/window.postMessage
   function receiveIframeMessage(event) {
 
     // does the origin sending the message match the current host? if not dev/null the request
-    if ((window.location.protocol !== "file:") && (event.origin !== window.location.protocol + "//" + window.location.host)) {
+    if ((window.location.protocol !== "file:") && (event.origin !== window.location.protocol + "// " + window.location.host)) {
       return;
     }
 
