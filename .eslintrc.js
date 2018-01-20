@@ -2,17 +2,18 @@
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
   parserOptions: {
-    sourceType: 'module'
+    parser: 'babel-eslint'
   },
   env: {
     browser: true,
   },
-  extends: 'airbnb-base',
+  // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
+  // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
+  extends: ['plugin:vue/essential', 'airbnb-base'],
   // required to lint *.vue files
   plugins: [
-    'html'
+    'vue'
   ],
   // check if imports actually resolve
   settings: {
@@ -29,13 +30,29 @@ module.exports = {
       js: 'never',
       vue: 'never'
     }],
+    // disallow reassignment of function parameters
+    // disallow parameter object manipulation except for specific exclusions
+    'no-param-reassign': ['error', {
+      props: true,
+      ignorePropertyModificationsFor: [
+        'state', // for vuex state
+        'acc', // for reduce accumulators
+        'e' // for e.returnvalue
+      ]
+    }],
     // allow optionalDependencies
     'import/no-extraneous-dependencies': ['error', {
       optionalDependencies: ['test/unit/index.js']
     }],
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'max-len': 0, // [1, 400, 2, { 'ignoreComments': true }],
+    'linebreak-style': 0,
     'comma-dangle': [2, 'never'],
-    'max-len': 'off'
+    'no-unused-vars': [1, { 'vars': 'local', 'args': 'none' }],
+    // 'indent': ["error", 2],
+
+    // VUE
+    'vue/script-indent': 0 // ["error", 2, { "baseIndent": 1 }]
   }
-}
+};

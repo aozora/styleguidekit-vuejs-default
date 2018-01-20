@@ -21,3 +21,5 @@
   * querystring vars: 515 - 
   * $('#sg-vp-wrap').click()
   * Listen for resize changes (579 - 591)
+  
+* pattern js

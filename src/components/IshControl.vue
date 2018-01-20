@@ -72,18 +72,15 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+import { mapState } from 'vuex';
 
-  export default {
-    name: 'IshControl',
+export default {
+  name: 'IshControl',
 
-
-    computed: {
-      ...mapState(
-        [
-          'ishControls'
-        ]
-      )
-    }
-  };
+  computed: {
+    ...mapState([
+      'ishControls'
+    ])
+  }
+};
 </script>
