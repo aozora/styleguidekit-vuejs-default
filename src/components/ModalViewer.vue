@@ -15,6 +15,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import $ from 'jquery';
+import urlHandler from '../api/url-handler';
+import DataSaver from '../api/data-saver';
+
 export default {
   name: 'ModalViewer',
 
@@ -27,14 +32,228 @@ export default {
     targetOrigin: (window.location.protocol === 'file:') ? '*' : `${window.location.protocol}//${window.location.host}`
   }),
 
-  methods: {
-    onReady() {
+  computed: {
+    ...mapState([
+      'config'
+    ])
+  },
 
+  methods: {
+    /**
+     * initialize the modal window
+     */
+    onReady() {
+      // make sure the listener for checkpanels is set-up
+      // Dispatcher.addListener('insertPanels', modalViewer.insert);
+
+      // watch for resizes and hide the modal container as appropriate when the modal is already hidden
+      $(window).on('resize', () => {
+        if (DataSaver.findValue('modalActive') === 'false') {
+          this.slide($('#sg-modal-container').outerHeight());
+        }
+      });
+
+      // add the info/code panel onclick handler
+      $('#sg-t-patterninfo').click((e) => {
+        e.preventDefault();
+        $('#sg-tools-toggle').removeClass('active');
+        $(e.target).parents('ul').removeClass('active');
+
+        this.toggle();
+      });
+
+      // make sure the close button handles the click
+      $('#sg-modal-close-btn').on('click', (e) => {
+        e.preventDefault();
+
+        // hide any open annotations
+        const obj = JSON.stringify({ event: 'patternLab.annotationsHighlightHide' });
+        document.getElementById('sg-viewport').contentWindow.postMessage(obj, this.targetOrigin);
+
+        // hide the viewer
+        this.close();
+      });
+
+      // see if the modal is already active, if so update attributes as appropriate
+      if (DataSaver.findValue('modalActive') === 'true') {
+        this.active = true;
+        $('#sg-t-patterninfo').html('Hide Pattern Info');
+      }
+
+      // make sure the modal viewer is not viewable, it's alway hidden by default. the pageLoad event determines when it actually opens
+      this.hide();
+
+      // review the query strings in case there is something the modal viewer is supposed to handle by default
+      const queryStringVars = urlHandler.getRequestVars();
+
+      // show the modal if code view is called via query string
+      if ((queryStringVars.view !== undefined) && ((queryStringVars.view === 'code') || (queryStringVars.view === 'c'))) {
+        this.queryPattern();
+      }
+
+      // show the modal if the old annotations view is called via query string
+      if ((queryStringVars.view !== undefined) && ((queryStringVars.view === 'annotations') || (queryStringVars.view === 'a'))) {
+        this.queryPattern();
+      }
+    },
+
+
+    /**
+     * toggle the modal window open and closed
+     */
+    toggle() {
+      if (this.active === false) {
+        this.queryPattern();
+      } else {
+        const obj = JSON.stringify({ event: 'patternLab.annotationsHighlightHide' });
+        document.getElementById('sg-viewport').contentWindow.postMessage(obj, this.targetOrigin);
+        this.close();
+      }
+    },
+
+    /**
+     * open the modal window
+     */
+    open() {
+      // make sure the modal viewer and other options are off just in case
+      this.close();
+
+      // note it's turned on in the viewer
+      DataSaver.updateValue('modalActive', 'true');
+      this.active = true;
+
+      // add an active class to the button that matches this template
+      $(`#sg-t-${this.template} .sg-checkbox`).addClass('active');
+
+      // Add active class to modal
+      $('#sg-modal-container').addClass('active');
+
+      // show the modal
+      this.show();
+    },
+
+    /**
+     * close the modal window
+     */
+    close() {
+      // not that the modal viewer is no longer active
+      DataSaver.updateValue('modalActive', 'false');
+      this.active = false;
+
+      // Add active class to modal
+      $('#sg-modal-container').removeClass('active');
+
+      // remove the active class from all of the checkbox items
+      $('.sg-checkbox').removeClass('active');
+
+      // hide the modal
+      this.hide();
+
+      // update the wording
+      $('#sg-t-patterninfo').html('Show Pattern Info');
+
+      // tell the styleguide to close
+      const obj = JSON.stringify({ event: 'patternLab.patternModalClose' });
+      document.getElementById('sg-viewport').contentWindow.postMessage(obj, this.targetOrigin);
+    },
+
+    /**
+     * hide the modal window, add 30px to account for the X box
+     */
+    hide() {
+      this.slide($('#sg-modal-container').outerHeight() + 30);
+    },
+
+    /**
+     * insert the copy for the modal window. if it's meant to be sent back to the iframe do do
+     * @param  {String}    templateRendered   the rendered template that should be inserted
+     * @param  {String}    patternPartial   the patternPartial that the rendered template is related to
+     * @param  {Boolean}   iframePassback   if the refresh is of a view-all view and the content should be sent back
+     * @param  {Boolean}   switchText   if the text in the dropdown should be switched
+     */
+    insert(templateRendered, patternPartial, iframePassback, switchText) {
+      if (iframePassback) {
+        // send a message to the pattern
+        const obj = JSON.stringify({
+          event: 'patternLab.patternModalInsert',
+          patternPartial,
+          modalContent: templateRendered.outerHTML
+        });
+
+        document.getElementById('sg-viewport').contentWindow.postMessage(obj, this.targetOrigin);
+      } else {
+        // insert the panels and open the viewer
+        $('#sg-modal-content').html(templateRendered);
+        this.open();
+      }
+
+      // update the wording unless this is a default viewall opening
+      if (switchText === true) {
+        $('#sg-t-patterninfo').html('Hide Pattern Info');
+      }
+    },
+
+    /**
+     * refresh the modal if a new pattern is loaded and the modal is active
+     * @param  {Object}    patternData   the patternData sent back from the query
+     * @param  {Boolean}   iframePassback   if the refresh is of a view-all view and the content should be sent back
+     * @param  {Boolean}   switchText   if the text in the dropdown should be switched
+     */
+    refresh(patternData, iframePassback, switchText) {
+      // if this is a styleguide view close the modal
+      if (iframePassback) {
+        this.hide();
+      }
+
+      // gather the data that will fill the modal window
+      panelsViewer.gatherPanels(patternData, iframePassback, switchText);
+    },
+
+
+    /**
+       * toggle the comment pop-up based on a user clicking on the pattern
+       * based on the great MDN docs at https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage
+       * @param  {Object}      event info
+       */
+    receiveIframeMessage(event) {
+      // does the origin sending the message match the current host? if not dev/null the request
+      if ((window.location.protocol !== 'file:') && (event.origin !== `${window.location.protocol}//${window.location.host}`)) {
+        return;
+      }
+
+      let data = {};
+      try {
+        data = (typeof event.data !== 'string') ? event.data : JSON.parse(event.data);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log(e.message);
+      }
+
+      if ((data.event !== undefined) && (data.event === 'patternLab.pageLoad')) {
+        if ((this.active === false) &&
+            (data.patternpartial !== undefined) &&
+            (data.patternpartial.indexOf('viewall-') === 0) &&
+            (this.config.defaultShowPatternInfo !== undefined) &&
+            (this.config.defaultShowPatternInfo)) {
+          this.queryPattern(false);
+        } else if (this.active === true) {
+          this.queryPattern();
+        }
+      } else if ((data.event !== undefined) && (data.event === 'patternLab.patternQueryInfo')) {
+        // refresh the modal if a new pattern is loaded and the modal is active
+        this.refresh(data.patternData, data.iframePassback, data.switchText);
+      } else if ((data.event !== undefined) && (data.event === 'patternLab.annotationNumberClicked')) {
+        // slide to a given annoation
+        this.slideToAnnotation(data.displayNumber);
+      }
     }
+
   },
 
   mounted() {
     this.onReady();
+
+    window.addEventListener('message', this.receiveIframeMessage, false);
   }
 };
 </script>
