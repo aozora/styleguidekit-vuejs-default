@@ -23,7 +23,8 @@ const Panels = {
 
   add(panel) {
     // if ID already exists in panels array ignore the add()
-    for (i = 0; i < this.panels.length; ++i) {
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < this.panels.length; ++i) {
       if (panel.id === this.panels[i].id) {
         return;
       }

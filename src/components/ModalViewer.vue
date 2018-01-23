@@ -19,6 +19,7 @@ import { mapState } from 'vuex';
 import $ from 'jquery';
 import urlHandler from '../api/url-handler';
 import DataSaver from '../api/data-saver';
+import panelsViewer from '../api/panels-viewer';
 
 export default {
   name: 'ModalViewer',
