@@ -9,8 +9,8 @@ export default {
   name: 'app',
 
   /**
-     * Add the PatternLab config to the store
-     */
+   * Add the PatternLab config to the store
+   */
   created() {
     this.$store.dispatch('SETUP');
   }

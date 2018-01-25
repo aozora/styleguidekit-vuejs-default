@@ -90,6 +90,7 @@ const panelsViewer = {
           templateCompiled = Hogan.compile(template.innerHTML);
           templateRendered = templateCompiled.render(patternData);
           panels[i].content = templateRendered;
+
           Dispatcher.trigger('checkPanels', [panels, patternData, iframePassback, switchText]);
         }
       }
@@ -104,17 +105,17 @@ const panelsViewer = {
    */
   renderPanels(panels, patternData, iframePassback, switchText) {
     // set-up defaults
-    let template,
-      templateCompiled,
-      templateRendered;
-    let annotation,
-      comment,
-      count,
-      div,
-      els,
-      item,
-      markup,
-      i;
+    let template;
+    let templateCompiled;
+    let templateRendered;
+    let annotation;
+    let comment;
+    let count;
+    let div;
+    let els;
+    let item;
+    let markup;
+    let i;
     const patternPartial = patternData.patternPartial;
     patternData.panels = panels;
 

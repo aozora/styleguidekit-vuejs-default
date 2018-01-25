@@ -36,17 +36,22 @@ const Panels = {
 
 };
 
-// set-up the base file extensions to fetch
-const fileSuffixPattern = ((config.outputFileSuffixes !== undefined) && (config.outputFileSuffixes.rawTemplate !== undefined)) ? config.outputFileSuffixes.rawTemplate : '';
-const fileSuffixMarkup = ((config.outputFileSuffixes !== undefined) && (config.outputFileSuffixes.markupOnly !== undefined)) ? config.outputFileSuffixes.markupOnly : '.markup-only';
+export default Panels;
 
-// add the default panels
-Panels.add({
-  id: 'sg-panel-pattern', default: true, templateID: 'pl-panel-template-code', httpRequest: true, httpRequestReplace: fileSuffixPattern, httpRequestCompleted: false, prismHighlight: true, keyCombo: 'ctrl+shift+u'
-});
-Panels.add({
-  id: 'sg-panel-html', name: 'HTML', default: false, templateID: 'pl-panel-template-code', httpRequest: true, httpRequestReplace: `${fileSuffixMarkup}.html`, httpRequestCompleted: false, prismHighlight: true, language: 'markup', keyCombo: 'ctrl+shift+y'
-});
+// MOVED TO STORE SETUP ACTION
 
-// gather panels from plugins
-Dispatcher.trigger('setupPanels');
+//
+// // set-up the base file extensions to fetch
+// const fileSuffixPattern = ((config.outputFileSuffixes !== undefined) && (config.outputFileSuffixes.rawTemplate !== undefined)) ? config.outputFileSuffixes.rawTemplate : '';
+// const fileSuffixMarkup = ((config.outputFileSuffixes !== undefined) && (config.outputFileSuffixes.markupOnly !== undefined)) ? config.outputFileSuffixes.markupOnly : '.markup-only';
+//
+// // add the default panels
+// Panels.add({
+//   id: 'sg-panel-pattern', default: true, templateID: 'pl-panel-template-code', httpRequest: true, httpRequestReplace: fileSuffixPattern, httpRequestCompleted: false, prismHighlight: true, keyCombo: 'ctrl+shift+u'
+// });
+// Panels.add({
+//   id: 'sg-panel-html', name: 'HTML', default: false, templateID: 'pl-panel-template-code', httpRequest: true, httpRequestReplace: `${fileSuffixMarkup}.html`, httpRequestCompleted: false, prismHighlight: true, language: 'markup', keyCombo: 'ctrl+shift+y'
+// });
+//
+// // gather panels from plugins
+// Dispatcher.trigger('setupPanels');
