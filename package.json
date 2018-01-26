@@ -28,7 +28,8 @@
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "hogan.js": "^3.0.2"
+    "hogan.js": "^3.0.2",
+    "prismjs": "^1.10.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.5",

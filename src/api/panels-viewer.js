@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /*!
  * Panel Builder. Supports building the panels to be included in the modal or styleguide
  *
@@ -9,6 +10,7 @@
  */
 import $ from 'jquery';
 import Hogan from 'hogan.js';
+import Prism from 'prismjs';
 import urlHandler from '../api/url-handler';
 import panelsUtil from '../api/panels-util';
 import Panels from '../api/panels';
@@ -75,9 +77,10 @@ const panelsViewer = {
           const fileBase = urlHandler.getFileName(patternData.patternPartial, false);
           const e = new XMLHttpRequest();
 
+          // eslint-disable-next-line no-shadow
           e.onload = (function (i, panels, patternData, iframeRequest) {
             return function () {
-              prismedContent = Prism.highlight(this.responseText, Prism.languages.html);
+              const prismedContent = Prism.highlight(this.responseText, Prism.languages.html);
               const template = document.getElementById(panels[i].templateID);
               const templateCompiled = Hogan.compile(template.innerHTML);
               const templateRendered = templateCompiled.render({ language: 'html', code: prismedContent });
@@ -115,9 +118,8 @@ const panelsViewer = {
     let count;
     let els;
     let item;
-    let markup;
 
-    const patternPartial = patternData.patternPartial;
+    const { patternPartial } = patternData;
     patternData.panels = panels;
 
     // set a default pattern description for modal pop-up
@@ -129,13 +131,14 @@ const panelsViewer = {
     patternData.patternNameCaps = patternData.patternName.toUpperCase();
 
     // check for annotations in the given mark-up
-    markup = document.createElement('div');
+    const markup = document.createElement('div');
     markup.innerHTML = patternData.patternMarkup;
 
     count = 1;
     patternData.annotations = [];
     delete patternData.patternMarkup;
 
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < comments.comments.length; ++i) {
       item = comments.comments[i];
       els = markup.querySelectorAll(item.el);
@@ -145,7 +148,7 @@ const panelsViewer = {
           displayNumber: count, el: item.el, title: item.title, comment: item.comment
         };
         patternData.annotations.push(annotation);
-        count++;
+        count += 1;
       }
     }
 
@@ -160,7 +163,8 @@ const panelsViewer = {
 
     // add hasComma property to lineage
     if (patternData.lineage.length > 0) {
-      for (i = 0; i < patternData.lineage.length; ++i) {
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < patternData.lineage.length; ++i) {
         if (i < (patternData.lineage.length - 1)) {
           patternData.lineage[i].hasComma = true;
         }
@@ -169,7 +173,8 @@ const panelsViewer = {
 
     // add hasComma property to lineageR
     if (patternData.lineageR.length > 0) {
-      for (i = 0; i < patternData.lineageR.length; ++i) {
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < patternData.lineageR.length; ++i) {
         if (i < (patternData.lineageR.length - 1)) {
           patternData.lineageR[i].hasComma = true;
         }
