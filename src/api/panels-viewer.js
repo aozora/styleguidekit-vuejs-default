@@ -7,6 +7,11 @@
  * @requires panels.js
  * @requires url-handler.js
  */
+import $ from 'jquery';
+import Hogan from 'hogan.js';
+import urlHandler from '../api/url-handler';
+import panelsUtil from '../api/panels-util';
+import Panels from '../api/panels';
 
 const panelsViewer = {
 
@@ -44,18 +49,16 @@ const panelsViewer = {
    * @param  {Boolean}     if this is going to be passed back to the styleguide
    */
   gatherPanels(patternData, iframePassback, switchText) {
-    Dispatcher.addListener('checkPanels', panelsViewer.checkPanels);
+    // Dispatcher.addListener('checkPanels', panelsViewer.checkPanels);
 
     // set-up defaults
-    let template;
-    let templateCompiled;
-    let templateRendered;
     let panel;
 
     // get the base panels
     const panels = Panels.get();
 
     // evaluate panels array and create content
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < panels.length; ++i) {
       panel = panels[i];
 
@@ -71,14 +74,16 @@ const panelsViewer = {
           // need a file and then render
           const fileBase = urlHandler.getFileName(patternData.patternPartial, false);
           const e = new XMLHttpRequest();
+
           e.onload = (function (i, panels, patternData, iframeRequest) {
             return function () {
               prismedContent = Prism.highlight(this.responseText, Prism.languages.html);
-              template = document.getElementById(panels[i].templateID);
-              templateCompiled = Hogan.compile(template.innerHTML);
-              templateRendered = templateCompiled.render({ language: 'html', code: prismedContent });
+              const template = document.getElementById(panels[i].templateID);
+              const templateCompiled = Hogan.compile(template.innerHTML);
+              const templateRendered = templateCompiled.render({ language: 'html', code: prismedContent });
               panels[i].content = templateRendered;
-              Dispatcher.trigger('checkPanels', [panels, patternData, iframePassback, switchText]);
+
+              // Dispatcher.trigger('checkPanels', [panels, patternData, iframePassback, switchText]);
             };
           }(i, panels, patternData, iframePassback));
 
@@ -86,12 +91,12 @@ const panelsViewer = {
           e.send();
         } else {
           // vanilla render of pattern data
-          template = document.getElementById(panel.templateID);
-          templateCompiled = Hogan.compile(template.innerHTML);
-          templateRendered = templateCompiled.render(patternData);
+          const template = document.getElementById(panel.templateID);
+          const templateCompiled = Hogan.compile(template.innerHTML);
+          const templateRendered = templateCompiled.render(patternData);
           panels[i].content = templateRendered;
 
-          Dispatcher.trigger('checkPanels', [panels, patternData, iframePassback, switchText]);
+          // Dispatcher.trigger('checkPanels', [panels, patternData, iframePassback, switchText]);
         }
       }
     }
@@ -105,17 +110,13 @@ const panelsViewer = {
    */
   renderPanels(panels, patternData, iframePassback, switchText) {
     // set-up defaults
-    let template;
-    let templateCompiled;
-    let templateRendered;
     let annotation;
-    let comment;
+    let comments;
     let count;
-    let div;
     let els;
     let item;
     let markup;
-    let i;
+
     const patternPartial = patternData.patternPartial;
     patternData.panels = panels;
 
@@ -135,7 +136,7 @@ const panelsViewer = {
     patternData.annotations = [];
     delete patternData.patternMarkup;
 
-    for (i = 0; i < comments.comments.length; ++i) {
+    for (let i = 0; i < comments.comments.length; ++i) {
       item = comments.comments[i];
       els = markup.querySelectorAll(item.el);
 
@@ -198,12 +199,12 @@ const panelsViewer = {
     patternData.isPatternView = (iframePassback === false);
 
     // render all of the panels in the base panel template
-    template = document.getElementById('pl-panel-template-base');
-    templateCompiled = Hogan.compile(template.innerHTML);
-    templateRendered = templateCompiled.render(patternData);
+    const template = document.getElementById('pl-panel-template-base');
+    const templateCompiled = Hogan.compile(template.innerHTML);
+    let templateRendered = templateCompiled.render(patternData);
 
     // make sure templateRendered is modified to be an HTML element
-    div = document.createElement('div');
+    const div = document.createElement('div');
     div.className = 'sg-modal-content-inner';
     div.innerHTML = templateRendered;
     templateRendered = div;
@@ -212,12 +213,13 @@ const panelsViewer = {
     templateRendered = panelsUtil.addClickEvents(templateRendered, patternPartial);
 
     // add onclick events to the tabs in the rendered content
-    for (i = 0; i < panels.length; ++i) {
-      panel = panels[i];
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < panels.length; ++i) {
+      const panel = panels[i];
 
       // default IDs
-      panelTab = `#sg-${patternPartial}-${panel.id}-tab`;
-      panelBlock = `#sg-${patternPartial}-${panel.id}-panel`;
+      const panelTab = `#sg-${patternPartial}-${panel.id}-tab`;
+      const panelBlock = `#sg-${patternPartial}-${panel.id}-panel`;
 
       // show default options
       if ((templateRendered.querySelector(panelTab) !== null) && (panel.default)) {
@@ -237,7 +239,7 @@ const panelsViewer = {
     });
 
     // gather panels from plugins
-    Dispatcher.trigger('insertPanels', [templateRendered, patternPartial, iframePassback, switchText]);
+    // Dispatcher.trigger('insertPanels', [templateRendered, patternPartial, iframePassback, switchText]);
   }
 
 };

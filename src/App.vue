@@ -12,7 +12,7 @@ export default {
    * Add the PatternLab config to the store
    */
   created() {
-    this.$store.dispatch('SETUP');
+    this.$store.dispatch('setup');
   }
 };
 </script>

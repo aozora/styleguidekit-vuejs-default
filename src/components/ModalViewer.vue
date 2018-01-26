@@ -39,6 +39,15 @@ export default {
     ])
   },
 
+  watch: {
+    '$store.state.showPatternInfo': () => {
+      $('#sg-tools-toggle').removeClass('active');
+      $('#sg-t-patterninfo').parents('ul').removeClass('active');
+
+      this.toggle();
+    }
+  },
+
   methods: {
     /**
      * initialize the modal window
@@ -54,14 +63,14 @@ export default {
         }
       });
 
-      // add the info/code panel onclick handler
-      $('#sg-t-patterninfo').click((e) => {
-        e.preventDefault();
-        $('#sg-tools-toggle').removeClass('active');
-        $(e.target).parents('ul').removeClass('active');
-
-        this.toggle();
-      });
+      // // add the info/code panel onclick handler
+      // $('#sg-t-patterninfo').click((e) => {
+      //   e.preventDefault();
+      //   $('#sg-tools-toggle').removeClass('active');
+      //   $(e.target).parents('ul').removeClass('active');
+      //
+      //   this.toggle();
+      // });
 
       // make sure the close button handles the click
       $('#sg-modal-close-btn').on('click', (e) => {

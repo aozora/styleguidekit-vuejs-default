@@ -51,7 +51,7 @@
 
         <ul class="sg-acc-panel sg-right sg-checklist">
           <li>
-            <a href="#" id="sg-t-patterninfo">Show Pattern Info</a>
+            <a v-on:click.prevent="togglePatternInfo" id="sg-t-patterninfo">Show Pattern Info</a>
           </li>
 
           <li v-if="!ishControls.ishControlsHide['views-new']">
@@ -72,14 +72,22 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'IshControl',
 
   computed: {
     ...mapState([
-      'ishControls'
+      'ishControls',
+      'showPatternInfo'
+    ])
+  },
+
+  methods: {
+
+    ...mapActions([
+      'togglePatternInfo'
     ])
   }
 };
