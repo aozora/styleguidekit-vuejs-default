@@ -77,8 +77,9 @@ const panelsViewer = {
           const fileBase = urlHandler.getFileName(patternData.patternPartial, false);
           const e = new XMLHttpRequest();
 
-          // eslint-disable-next-line no-shadow
+          // eslint-disable-next-line no-shadow,func-names
           e.onload = (function (i, panels, patternData, iframeRequest) {
+            // eslint-disable-next-line func-names
             return function () {
               const prismedContent = Prism.highlight(this.responseText, Prism.languages.html);
               const template = document.getElementById(panels[i].templateID);
@@ -234,13 +235,13 @@ const panelsViewer = {
     }
 
     // find lineage links in the rendered content and add postmessage handlers in case it's in the modal
-    $('#sg-code-lineage-fill a, #sg-code-lineager-fill a', templateRendered).on('click', function (e) {
+    $('#sg-code-lineage-fill a, #sg-code-lineager-fill a', templateRendered).on('click', (e) => {
       e.preventDefault();
       const obj = JSON.stringify({
         event: 'patternLab.updatePath',
-        path: urlHandler.getFileName($(this).attr('data-patternpartial'))
+        path: urlHandler.getFileName($(e.target).attr('data-patternpartial'))
       });
-      document.getElementById('sg-viewport').contentWindow.postMessage(obj, panelsViewer.targetOrigin);
+      document.getElementById('sg-viewport').contentWindow.postMessage(obj, this.targetOrigin);
     });
 
     // gather panels from plugins

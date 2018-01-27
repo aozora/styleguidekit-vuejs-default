@@ -221,10 +221,67 @@ export default {
 
 
     /**
-       * toggle the comment pop-up based on a user clicking on the pattern
-       * based on the great MDN docs at https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage
-       * @param  {Object}      event info
-       */
+     * slides the modal window into or out of view
+     * @param  {Integer}      where the modal window should be slide to
+     */
+    slide(pos) {
+      const newpos = (pos === 0) ? 0 : -pos;
+      $('#sg-modal-container').css('bottom', newpos);
+    },
+
+    /**
+     * slides the modal window to a particular annotation
+     * @param  {Integer}      the number for the element that should be highlighted
+     */
+    slideToAnnotation(pos) {
+      // remove active class
+      const els = document.querySelectorAll('#sg-annotations > .sg-annotations-list > li');
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < els.length; ++i) {
+        els[i].classList.remove('active');
+      }
+
+      // add active class to called element and scroll to it
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < els.length; ++i) {
+        if ((i + 1) === pos) {
+          els[i].classList.add('active');
+          $('.sg-pattern-extra-info').animate({ scrollTop: els[i].offsetTop - 10 }, 600);
+        }
+      }
+    },
+
+    /**
+     * alias for slide
+     */
+    show() {
+      this.slide(0);
+    },
+
+    /**
+     * ask the pattern for info so we can open the modal window and populate it
+     * @param  {Boolean}      if the dropdown text should be changed
+     */
+    queryPattern(switchText) {
+      // note that the modal is active and set switchText
+      if ((switchText === undefined) || (switchText)) {
+        // eslint-disable-next-line no-param-reassign
+        switchText = true;
+        DataSaver.updateValue('modalActive', 'true');
+        this.active = true;
+      }
+
+      // send a message to the pattern
+      const obj = JSON.stringify({ event: 'patternLab.patternQuery', switchText });
+      document.getElementById('sg-viewport').contentWindow.postMessage(obj, this.targetOrigin);
+    },
+
+
+    /**
+     * toggle the comment pop-up based on a user clicking on the pattern
+     * based on the great MDN docs at https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage
+     * @param  {Object}      event info
+     */
     receiveIframeMessage(event) {
       // does the origin sending the message match the current host? if not dev/null the request
       if ((window.location.protocol !== 'file:') && (event.origin !== `${window.location.protocol}//${window.location.host}`)) {
@@ -241,10 +298,10 @@ export default {
 
       if ((data.event !== undefined) && (data.event === 'patternLab.pageLoad')) {
         if ((this.active === false) &&
-            (data.patternpartial !== undefined) &&
-            (data.patternpartial.indexOf('viewall-') === 0) &&
-            (this.config.defaultShowPatternInfo !== undefined) &&
-            (this.config.defaultShowPatternInfo)) {
+          (data.patternpartial !== undefined) &&
+          (data.patternpartial.indexOf('viewall-') === 0) &&
+          (this.config.defaultShowPatternInfo !== undefined) &&
+          (this.config.defaultShowPatternInfo)) {
           this.queryPattern(false);
         } else if (this.active === true) {
           this.queryPattern();
