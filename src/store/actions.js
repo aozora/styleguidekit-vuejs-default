@@ -22,35 +22,35 @@ export const setup = ({ state, commit }) => {
 
 
   // Setup panels
-
-  // set-up the base file extensions to fetch
-  const fileSuffixPattern = ((state.config.outputFileSuffixes !== undefined) && (state.config.outputFileSuffixes.rawTemplate !== undefined)) ? state.config.outputFileSuffixes.rawTemplate : '';
-  const fileSuffixMarkup = ((state.config.outputFileSuffixes !== undefined) && (state.config.outputFileSuffixes.markupOnly !== undefined)) ? state.config.outputFileSuffixes.markupOnly : '.markup-only';
-
-  // add the default panels
-  Panels.add({
-    id: 'sg-panel-pattern',
-    default: true,
-    templateID: 'pl-panel-template-code',
-    httpRequest: true,
-    httpRequestReplace: fileSuffixPattern,
-    httpRequestCompleted: false,
-    prismHighlight: true,
-    keyCombo: 'ctrl+shift+u'
-  });
-
-  Panels.add({
-    id: 'sg-panel-html',
-    name: 'HTML',
-    default: false,
-    templateID: 'pl-panel-template-code',
-    httpRequest: true,
-    httpRequestReplace: `${fileSuffixMarkup}.html`,
-    httpRequestCompleted: false,
-    prismHighlight: true,
-    language: 'markup',
-    keyCombo: 'ctrl+shift+y'
-  });
+  //
+  // // set-up the base file extensions to fetch
+  // const fileSuffixPattern = ((patternData.config.outputFileSuffixes !== undefined) && (patternData.config.outputFileSuffixes.rawTemplate !== undefined)) ? patternData.config.outputFileSuffixes.rawTemplate : '';
+  // const fileSuffixMarkup = ((patternData.config.outputFileSuffixes !== undefined) && (patternData.config.outputFileSuffixes.markupOnly !== undefined)) ? patternData.config.outputFileSuffixes.markupOnly : '.markup-only';
+  //
+  // // add the default panels
+  // Panels.add({
+  //   id: 'sg-panel-pattern',
+  //   default: true,
+  //   templateID: 'pl-panel-template-code',
+  //   httpRequest: true,
+  //   httpRequestReplace: fileSuffixPattern,
+  //   httpRequestCompleted: false,
+  //   prismHighlight: true,
+  //   keyCombo: 'ctrl+shift+u'
+  // });
+  //
+  // Panels.add({
+  //   id: 'sg-panel-html',
+  //   name: 'HTML',
+  //   default: false,
+  //   templateID: 'pl-panel-template-code',
+  //   httpRequest: true,
+  //   httpRequestReplace: `${fileSuffixMarkup}.html`,
+  //   httpRequestCompleted: false,
+  //   prismHighlight: true,
+  //   language: 'markup',
+  //   keyCombo: 'ctrl+shift+y'
+  // });
 
   // for compatibility, add the Panels
   window.Panels = Panels;

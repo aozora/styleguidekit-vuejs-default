@@ -347,19 +347,19 @@ var navItems = {
         "patternSubtypeDash": "layout",
         "patternSubtypeItems": [
           {
-          "patternPartial": "viewall-molecules-layout",
-          "patternName": "View All",
-          "patternPath": "01-molecules-00-layout/index.html",
-          "patternType": "01-molecules",
-          "order": 0
-        }, {
-          "patternPartial": "molecules-float-classes",
-          "patternName": "Float Classes",
-          "patternState": "",
-          "patternSrcPath": "01-molecules/00-layout/00-float-classes",
-          "patternPath": "01-molecules-00-layout/01-molecules-00-layout.html",
-          "order": 9007199254740991
-        }]
+            "patternPartial": "viewall-molecules-layout",
+            "patternName": "View All",
+            "patternPath": "01-molecules-00-layout/index.html",
+            "patternType": "01-molecules",
+            "order": 0
+          }, {
+            "patternPartial": "molecules-float-classes",
+            "patternName": "Float Classes",
+            "patternState": "",
+            "patternSrcPath": "01-molecules/00-layout/00-float-classes",
+            "patternPath": "01-molecules-00-layout/01-molecules-00-layout.html",
+            "order": 9007199254740991
+          }]
       }, {
         "patternSubtypeLC": "controls",
         "patternSubtypeUC": "Controls",
