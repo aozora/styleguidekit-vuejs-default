@@ -13,7 +13,7 @@ export default {
     state.defaultPattern = patternData.defaultPattern;
   },
 
-  [types.SHOW_PATTERN_INFO]: (state, show) => {
+  [types.SHOW_PATTERN_INFO](state, show) {
     state.showPatternInfo = show;
   }
 };

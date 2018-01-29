@@ -290,7 +290,13 @@ export default {
 
       let data = {};
       try {
-        data = (typeof event.data !== 'string') ? event.data : JSON.parse(event.data);
+        // data = (typeof event.data !== 'string') ? event.data : JSON.parse(event.data);
+        if (typeof event.data !== 'string') {
+          // eslint-disable-next-line prefer-destructuring
+          data = event.data;
+        } else if (event.data !== '') {
+          data = JSON.parse(event.data);
+        }
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log(e.message);

@@ -94,18 +94,18 @@ export default {
     togglePanel($event) {
       const $this = $($event.target);
       const $panel = $this.next('.sg-acc-panel');
-      const subnav = $this.parent().parent().hasClass('sg-acc-panel');
+      // const subnav = $this.parent().parent().hasClass('sg-acc-panel');
 
-      // Close other panels if link isn't a subnavigation item
-      if (!subnav) {
-        $('.sg-acc-handle').not($this).removeClass('active');
-        $('.sg-acc-panel').not($panel).removeClass('active');
-      }
+      // // Close other panels if link isn't a subnavigation item
+      // if (!subnav) {
+      //   $('.sg-acc-handle').not($this).removeClass('active');
+      //   $('.sg-acc-panel').not($panel).removeClass('active');
+      // }
 
       // Activate selected panel
       $this.toggleClass('active');
       $panel.toggleClass('active');
-      this.setAccordionHeight();
+      // this.setAccordionHeight();
     },
 
 
