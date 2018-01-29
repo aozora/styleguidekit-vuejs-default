@@ -7,8 +7,8 @@ var config = {
       "data": "./source/_data/",
       "meta": "./source/_meta/",
       "annotations": "./source/_annotations/",
-      "styleguide": "./node_modules/styleguidekit-assets-default/dist/",
-      "patternlabFiles": "./node_modules/styleguidekit-mustache-default/views/",
+      "styleguide": "./node_modules/styleguidekit-vuejs-default/dist/",
+      "patternlabFiles": "./node_modules/styleguidekit-vuejs-default/styleguide/views/",
       "js": "./source/js/",
       "images": "./source/images/",
       "fonts": "./source/fonts/",
@@ -32,10 +32,10 @@ var config = {
   "defaultPattern": "all",
   "defaultShowPatternInfo": false,
   "cleanPublic": true,
-  "patternExtension": "mustache",
+  "patternExtension": "hbs",
   "ignored-extensions": ["scss", "sass", "DS_Store", "less"],
   "ignored-directories": ["scss", "sass"],
-  "debug": false,
+  "logLevel": "debug",
   "ishControlsHide": {
     "s": false,
     "m": false,
@@ -125,7 +125,8 @@ var navItems = {
             "patternPath": "00-atoms-00-global/00-atoms-00-global.html",
             "order": 9007199254740991
           }]
-        }, {
+        },
+        {
           "patternSubtypeLC": "text",
           "patternSubtypeUC": "Text",
           "patternSubtype": "01-text",
@@ -186,7 +187,8 @@ var navItems = {
             "patternPath": "00-atoms-01-text/00-atoms-01-text.html",
             "order": 9007199254740991
           }]
-        }, {
+        },
+        {
           "patternSubtypeLC": "lists",
           "patternSubtypeUC": "Lists",
           "patternSubtype": "02-lists",
@@ -219,7 +221,8 @@ var navItems = {
             "patternPath": "00-atoms-02-lists/00-atoms-02-lists.html",
             "order": 9007199254740991
           }]
-        }, {
+        },
+        {
           "patternSubtypeLC": "controls",
           "patternSubtypeUC": "Controls",
           "patternSubtype": "03-controls",
@@ -280,7 +283,8 @@ var navItems = {
             "patternPath": "00-atoms-03-controls/00-atoms-03-controls.html",
             "order": 9007199254740991
           }]
-        }, {
+        },
+        {
           "patternSubtypeLC": "media",
           "patternSubtypeUC": "Media",
           "patternSubtype": "04-media",
@@ -327,15 +331,18 @@ var navItems = {
             "patternPath": "00-atoms-04-media/00-atoms-04-media.html",
             "order": 9007199254740991
           }]
-        }],
-      "patternItems": [{
-        "patternPartial": "viewall-atoms-all",
-        "patternName": "View All",
-        "patternPath": "00-atoms/index.html",
-        "order": -9007199254740991
-      }
+        }
+      ],
+      "patternItems": [
+        {
+          "patternPartial": "viewall-atoms-all",
+          "patternName": "View All",
+          "patternPath": "00-atoms/index.html",
+          "order": -9007199254740991
+        }
       ]
-    }, {
+    },
+    {
       "patternTypeLC": "molecules",
       "patternTypeUC": "Molecules",
       "patternType": "01-molecules",
@@ -345,21 +352,20 @@ var navItems = {
         "patternSubtypeUC": "Layout",
         "patternSubtype": "00-layout",
         "patternSubtypeDash": "layout",
-        "patternSubtypeItems": [
-          {
-            "patternPartial": "viewall-molecules-layout",
-            "patternName": "View All",
-            "patternPath": "01-molecules-00-layout/index.html",
-            "patternType": "01-molecules",
-            "order": 0
-          }, {
-            "patternPartial": "molecules-float-classes",
-            "patternName": "Float Classes",
-            "patternState": "",
-            "patternSrcPath": "01-molecules/00-layout/00-float-classes",
-            "patternPath": "01-molecules-00-layout/01-molecules-00-layout.html",
-            "order": 9007199254740991
-          }]
+        "patternSubtypeItems": [{
+          "patternPartial": "viewall-molecules-layout",
+          "patternName": "View All",
+          "patternPath": "01-molecules-00-layout/index.html",
+          "patternType": "01-molecules",
+          "order": 0
+        }, {
+          "patternPartial": "molecules-float-classes",
+          "patternName": "Float Classes",
+          "patternState": "",
+          "patternSrcPath": "01-molecules/00-layout/00-float-classes",
+          "patternPath": "01-molecules-00-layout/01-molecules-00-layout.html",
+          "order": 9007199254740991
+        }]
       }, {
         "patternSubtypeLC": "controls",
         "patternSubtypeUC": "Controls",
@@ -588,7 +594,8 @@ var navItems = {
         "patternPath": "01-molecules/index.html",
         "order": -9007199254740991
       }]
-    }, {
+    },
+    {
       "patternTypeLC": "organisms",
       "patternTypeUC": "Organisms",
       "patternType": "02-organisms",
@@ -619,7 +626,8 @@ var navItems = {
         "patternPath": "02-organisms/index.html",
         "order": -9007199254740991
       }]
-    }],
+    }
+  ],
   "ishControlsHide": {
     "s": false,
     "m": false,
@@ -694,6 +702,7 @@ var patternPaths = {
   },
   "organisms": { "top-bar": "02-organisms-02-navigation-00-top-bar" }
 };
+
 var viewAllPaths = {
   "atoms": {
     "global": "00-atoms-00-global",

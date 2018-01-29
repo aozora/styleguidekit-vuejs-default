@@ -5,10 +5,10 @@
       <a href="#sg-nav-container" class="sg-nav-toggle" v-on:click.prevent="toggleMenu">Menu</a>
       <div class="sg-nav-container" id="sg-nav-container">
         <!-- pattern lab nav will be inserted here -->
-        <pattern-nav></pattern-nav>
+        <!--<pattern-nav></pattern-nav>-->
         <div class="sg-controls" id="sg-controls">
           <!-- ish Controls will be inserted here -->
-          <ish-control></ish-control>
+          <!--<ish-control></ish-control>-->
         </div>
       </div>
     </header>
@@ -26,7 +26,7 @@
     </div>
     <!--end iFrame-->
 
-    <modal-viewer></modal-viewer>
+    <!--<modal-viewer></modal-viewer>-->
 
   </div>
 </template>
@@ -90,6 +90,7 @@ export default {
     const baseIframePath = `${window.location.protocol}//${window.location.host}${window.location.pathname.replace('index.html', '')}`;
     let iFramePath = `${baseIframePath}styleguide/html/styleguide.html?${Date.now()}`;
     let patternName = ((this.$store.state.defaultPattern !== undefined) && (typeof this.$store.state.defaultPattern === 'string') && (this.$store.state.defaultPattern.trim().length > 0)) ? this.$store.state.defaultPattern : 'all';
+
     if ((oGetVars.p !== undefined) || (oGetVars.pattern !== undefined)) {
       patternName = (oGetVars.p !== undefined) ? oGetVars.p : oGetVars.pattern;
     }
@@ -107,7 +108,7 @@ export default {
 
     // Viewport Height
 
-    // set minimum and maximum viewport based on confg
+    // set minimum and maximum viewport based on config
     if (this.config.ishMinimum !== undefined) {
       // eslint-disable-next-line prefer-destructuring
       this.minViewportWidth = parseInt(this.config.ishMinimum, 10); // Minimum Size for Viewport

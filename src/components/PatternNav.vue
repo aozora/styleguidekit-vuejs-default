@@ -1,9 +1,11 @@
 <template>
   <ol class="sg-nav" id="pl-pattern-nav-target">
-    <li v-for="(patternType, index) in navItems.patternTypes" :key="index">
+    <li v-if="navItems.patternTypes && navItems.patternTypes.length > 0"
+        v-for="patternType in navItems.patternTypes"
+        :key="patternType.patternTypeLC">
       <a v-on:click.prevent="toggleAccordion" class="sg-acc-handle">{{ patternType.patternTypeUC }}</a>
       <ol class="sg-acc-panel">
-        <li v-for="(patternTypeItem, itemIndex) in patternType.patternTypeItems" :key="itemIndex">
+        <li v-for="patternTypeItem in patternType.patternTypeItems" :key="patternTypeItem.patternSubtypeLC">
           <a v-on:click.prevent="toggleAccordion" class="sg-acc-handle">{{ patternTypeItem.patternSubtypeUC }}</a>
           <ol class="sg-acc-panel sg-sub-nav">
 
@@ -20,7 +22,7 @@
           </ol>
         </li>
 
-        <li v-for="(patternItem, index) in patternType.patternItems" :key="index">
+        <li v-for="patternItem in patternType.patternItems" :key="patternItem.patternPartial">
           <a v-bind:href="getPatternUrl(patternItem.patternPath)"
              class="sg-pop"
              v-bind:class="{'sg-pattern-state': patternItem.patternState}"
@@ -65,10 +67,10 @@ export default {
         path: urlHandler.getFileName(patternPartial)
       });
 
-        // eslint-disable-next-line no-console
-        // console.dir(obj);
+      // eslint-disable-next-line no-console
+      // console.dir(obj);
 
-        // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console
       console.log(`urlHandler.targetOrigin: ${urlHandler.targetOrigin}`);
 
       document.getElementById('sg-viewport').contentWindow.postMessage(obj, urlHandler.targetOrigin);

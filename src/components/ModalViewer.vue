@@ -53,6 +53,9 @@ export default {
      * initialize the modal window
      */
     onReady() {
+      // eslint-disable-next-line no-console
+      console.log('ModalViewer: onReady()');
+
       // make sure the listener for checkpanels is set-up
       // Dispatcher.addListener('insertPanels', modalViewer.insert);
 
