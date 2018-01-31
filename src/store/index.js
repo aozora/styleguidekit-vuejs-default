@@ -49,14 +49,14 @@ const store = new Vuex.Store({
   actions: {
     setup({ state, commit }) {
       const patternData = {};
-      patternData.config = window.config;
-      patternData.ishControls = window.ishControls;
-      patternData.navItems = window.navItems;
-      patternData.patternPaths = window.patternPaths;
-      patternData.viewAllPaths = window.viewAllPaths;
-      patternData.plugins = window.plugins;
-      patternData.defaultShowPatternInfo = window.defaultShowPatternInfo;
-      patternData.defaultPattern = window.defaultPattern;
+      patternData.config = window.config || {};
+      patternData.ishControls = window.ishControls || {};
+      patternData.navItems = window.navItems || {};
+      patternData.patternPaths = window.patternPaths || {};
+      patternData.viewAllPaths = window.viewAllPaths || {};
+      patternData.plugins = window.plugins || [];
+      patternData.defaultShowPatternInfo = window.defaultShowPatternInfo || false;
+      patternData.defaultPattern = window.defaultPattern || 'all';
 
       commit('SETUP', patternData);
 

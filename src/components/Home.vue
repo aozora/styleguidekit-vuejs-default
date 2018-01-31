@@ -5,10 +5,10 @@
       <a href="#sg-nav-container" class="sg-nav-toggle" v-on:click.prevent="toggleMenu">Menu</a>
       <div class="sg-nav-container" id="sg-nav-container">
         <!-- pattern lab nav will be inserted here -->
-        <!--<pattern-nav></pattern-nav>-->
+        <pattern-nav></pattern-nav>
         <div class="sg-controls" id="sg-controls">
           <!-- ish Controls will be inserted here -->
-          <!--<ish-control></ish-control>-->
+          <ish-control></ish-control>
         </div>
       </div>
     </header>
@@ -26,7 +26,7 @@
     </div>
     <!--end iFrame-->
 
-    <!--<modal-viewer></modal-viewer>-->
+    <modal-viewer></modal-viewer>
 
   </div>
 </template>
